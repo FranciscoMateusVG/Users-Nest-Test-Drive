@@ -7,11 +7,12 @@ import { ReportsModule } from './reports/reports.module';
 import { UsersModule } from './users/users.module';
 import { OrmModule } from './orm/orm.module';
 import { User } from './orm/users/user.entity';
+import { Report } from './orm/reports/report.entity';
 
 const DbModule = TypeOrmModule.forRoot({
   type: 'sqlite',
   database: 'db.sqlite',
-  entities: [User],
+  entities: [User, Report],
   synchronize: true,
 });
 
