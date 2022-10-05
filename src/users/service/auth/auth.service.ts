@@ -33,13 +33,7 @@ export class AuthService {
       throw new NotFoundException('User not found!');
     }
 
-    const [salt, storedHash] = user.password.split('.');
-
-    const hashValid = await this.hashingService.validateHash(
-      storedHash,
-      password,
-      salt,
-    );
+    const hashValid = await this.hashingService.validateHash(user, password);
 
     if (!hashValid) throw new BadRequestException('Invalid password');
 

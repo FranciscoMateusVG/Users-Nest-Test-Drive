@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HashingService } from './hashing.service';
 import { faker } from '@faker-js/faker';
+import { User } from '../../../orm/users/user.entity';
 
 describe('HashingService', () => {
   let hashingService: HashingService;
@@ -27,14 +28,13 @@ describe('HashingService', () => {
   it('validate hash should return true if validated', async () => {
     const randomPassword = faker.internet.password();
     const hashedPassword = await hashingService.hash(randomPassword);
+    const user: User = {
+      email: 'random_email',
+      password: hashedPassword,
+      id: 1,
+    };
 
-    const [salt, storedHash] = hashedPassword.split('.');
-
-    const hashValid = await hashingService.validateHash(
-      storedHash,
-      randomPassword,
-      salt,
-    );
+    const hashValid = await hashingService.validateHash(user, randomPassword);
 
     expect(hashValid).toBeTruthy();
   });
@@ -42,14 +42,13 @@ describe('HashingService', () => {
   it('validate hash should return false if not validated', async () => {
     const randomPassword = faker.internet.password();
     const hashedPassword = await hashingService.hash(randomPassword);
+    const user: User = {
+      email: 'random_email',
+      password: hashedPassword,
+      id: 1,
+    };
 
-    const [salt, storedHash] = hashedPassword.split('.');
-
-    const hashValid = await hashingService.validateHash(
-      storedHash,
-      'WrongPassword',
-      salt,
-    );
+    const hashValid = await hashingService.validateHash(user, 'WrongPassword');
 
     expect(hashValid).toBeFalsy();
   });

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { scrypt as _scrypt, randomBytes } from 'crypto';
 import { promisify } from 'util';
+import { User } from '../../../orm/users/user.entity';
 
 const scrypt = promisify(_scrypt);
 
@@ -14,7 +15,8 @@ export class HashingService {
     return result;
   }
 
-  async validateHash(storedHash: string, password: string, salt: string) {
+  async validateHash(user: User, password: string) {
+    const [salt, storedHash] = user.password.split('.');
     const hash = (await scrypt(password, salt, 32)) as Buffer;
     const userHash = hash.toString('hex');
 
