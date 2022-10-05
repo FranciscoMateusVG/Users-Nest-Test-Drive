@@ -1,6 +1,7 @@
 import {
   CallHandler,
   ExecutionContext,
+  Injectable,
   NestInterceptor,
   UseInterceptors,
 } from '@nestjs/common';
@@ -15,6 +16,7 @@ export function Serialize(dto: ClassConstructor) {
   return UseInterceptors(new SerializeInterceptor(dto));
 }
 
+@Injectable()
 export class SerializeInterceptor implements NestInterceptor {
   constructor(private dto: ClassConstructor) {}
 

@@ -1,4 +1,6 @@
 import { Module } from '@nestjs/common';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { CurrentUserInterceptor } from 'src/interceptors/current-user.interceptor';
 import { OrmModule } from 'src/orm/orm.module';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { UsersController } from './controller/users.controller';
@@ -10,7 +12,12 @@ import { UsersService } from './service/users/users.service';
 @Module({
   imports: [OrmModule, PrismaModule],
   controllers: [UsersController],
-  providers: [UsersService, AuthService, HashingService],
+  providers: [
+    UsersService,
+    AuthService,
+    HashingService,
+    { provide: APP_INTERCEPTOR, useClass: CurrentUserInterceptor },
+  ],
   exports: [UsersService, AuthService],
 })
 export class UsersModule {}
