@@ -11,7 +11,6 @@ export class HashingService {
     const hash = (await scrypt(password, salt, 32)) as Buffer;
 
     const result = salt + '.' + hash.toString('hex');
-
     return result;
   }
 
