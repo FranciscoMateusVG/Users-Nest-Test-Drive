@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { HashingService } from './hashing.service';
 
@@ -23,5 +27,22 @@ export class AuthService {
     return user;
   }
 
-  signIn() {}
+  async signIn(email: string, password: string) {
+    const [user] = await this.usersService.find(email);
+    if (!user) {
+      throw new NotFoundException('User not found!');
+    }
+
+    const [salt, storedHash] = user.password.split('.');
+
+    const hashValid = await this.hashingService.validateHash(
+      storedHash,
+      password,
+      salt,
+    );
+
+    if (!hashValid) throw new BadRequestException('Invalid password');
+
+    return user;
+  }
 }

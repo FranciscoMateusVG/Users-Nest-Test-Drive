@@ -14,4 +14,14 @@ export class HashingService {
 
     return result;
   }
+
+  async validateHash(storedHash: string, password: string, salt: string) {
+    const hash = (await scrypt(password, salt, 32)) as Buffer;
+    const userHash = hash.toString('hex');
+
+    if (storedHash === userHash) {
+      return true;
+    }
+    return false;
+  }
 }
