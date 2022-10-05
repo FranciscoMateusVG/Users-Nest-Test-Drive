@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { User } from 'src/orm/users/user.entity';
 import { UserRepo } from '../../orm/users/user.repo';
 //import { UserRepo } from '../../prisma/users/user.repo';
 
@@ -12,5 +13,21 @@ export class UsersService {
 
   getAll() {
     return this.userRepo.getAll();
+  }
+
+  findOne(id: number) {
+    return this.userRepo.findOne(id);
+  }
+
+  find(email: string) {
+    return this.userRepo.find(email);
+  }
+
+  update(id: number, attrs: Partial<User>) {
+    return this.userRepo.update(id, attrs);
+  }
+
+  remove(id: number) {
+    return this.userRepo.remove(id);
   }
 }
