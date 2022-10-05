@@ -6,10 +6,11 @@ import { UsersModule } from './users/users.module';
 import { User } from './orm/users/user.entity';
 import { Report } from './orm/reports/report.entity';
 import { UsersController } from './users/controller/users.controller';
+import { PrismaModule } from './prisma/prisma.module';
 
 const DbOrmModule = TypeOrmModule.forRoot({
   type: 'sqlite',
-  database: 'db.sqlite',
+  database: 'typeOrm.sqlite',
   entities: [User, Report],
   synchronize: true,
 });
