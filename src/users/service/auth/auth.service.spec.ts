@@ -1,18 +1,27 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UsersService } from './users.service';
+import { UsersService } from '../users/users.service';
+import { createMock } from '@golevelup/ts-jest';
+import { HashingService } from './hashing.service';
+import { AuthService } from './auth.service';
 
-describe('UsersService', () => {
-  let service: UsersService;
+describe('AuthService', () => {
+  let authService: AuthService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UsersService],
+      providers: [
+        AuthService,
+        { provide: UsersService, useValue: createMock<UsersService>() },
+        { provide: HashingService, useValue: createMock<HashingService>() },
+      ],
     }).compile();
 
-    service = module.get<UsersService>(UsersService);
+    authService = module.get<AuthService>(AuthService);
   });
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
+    expect(authService).toBeDefined();
   });
+
+  it('should be defined', () => {});
 });
