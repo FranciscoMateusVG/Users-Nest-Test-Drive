@@ -19,14 +19,7 @@ import { AuthService } from '../service/auth/auth.service';
 import { CurrentUser } from '../decorators/current-user.decorator';
 import { User } from '../../common/orm/users/user.entity';
 import { AuthGuard } from '../../common/guards/auth.guard';
-import {
-  ApiCreatedResponse,
-  ApiForbiddenResponse,
-  ApiNotFoundResponse,
-  ApiOkResponse,
-  ApiTags,
-  ApiUnprocessableEntityResponse,
-} from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Users')
 @Controller('auth')
@@ -43,9 +36,6 @@ export class UsersController {
   }
 
   @Get('/:id')
-  @ApiOkResponse({ description: 'The resource was returned successfully' })
-  @ApiForbiddenResponse({ description: 'Unauthorized Request' })
-  @ApiNotFoundResponse({ description: 'Resource not found' })
   findUser(@Param('id') id: string) {
     return this.usersService.findOne(parseInt(id));
   }
@@ -79,9 +69,6 @@ export class UsersController {
   }
 
   @Post('/signin')
-  @ApiCreatedResponse({ description: 'Created Succesfully' })
-  @ApiUnprocessableEntityResponse({ description: 'Bad Request' })
-  @ApiForbiddenResponse({ description: 'Unauthorized Request' })
   async signin(@Body() body: CreateUserDto, @Session() session: any) {
     const user = await this.authService.signIn(body.email, body.password);
     session.userId = user.id;
