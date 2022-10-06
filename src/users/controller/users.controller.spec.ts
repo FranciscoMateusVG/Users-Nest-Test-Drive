@@ -5,7 +5,9 @@ import { createMock } from '@golevelup/ts-jest';
 import { UsersService } from '../service/users/users.service';
 
 describe('UsersController', () => {
-  let controller: UsersController;
+  let usersController: UsersController;
+  let fakeAuthService: AuthService;
+  let fakeUsersService: UsersService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -16,10 +18,12 @@ describe('UsersController', () => {
       ],
     }).compile();
 
-    controller = module.get<UsersController>(UsersController);
+    usersController = module.get<UsersController>(UsersController);
+    fakeAuthService = module.get<AuthService>(AuthService);
+    fakeUsersService = module.get<UsersService>(UsersService);
   });
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
+    expect(usersController).toBeDefined();
   });
 });
