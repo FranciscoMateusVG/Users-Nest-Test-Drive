@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { scrypt as _scrypt, randomBytes } from 'crypto';
 import { promisify } from 'util';
-import { User } from '../../../orm/users/user.entity';
+import { User } from '../../../common/orm/users/user.entity';
 
 const scrypt = promisify(_scrypt);
 

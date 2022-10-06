@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HashingService } from './hashing.service';
 import { faker } from '@faker-js/faker';
-import { User } from '../../../orm/users/user.entity';
+import { User } from '../../../common/orm/users/user.entity';
 
 describe('HashingService', () => {
   let hashingService: HashingService;

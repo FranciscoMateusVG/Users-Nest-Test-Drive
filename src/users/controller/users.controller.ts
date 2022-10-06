@@ -12,13 +12,13 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { UpdateUserDto } from '../dtos/update-user.dto';
-import { Serialize } from '../../interceptors/serialize.interceptor';
+import { Serialize } from '../../common/interceptors/serialize.interceptor';
 import { UserDto } from '../dtos/user.dto';
 import { UsersService } from '../service/users/users.service';
 import { AuthService } from '../service/auth/auth.service';
 import { CurrentUser } from '../decorators/current-user.decorator';
-import { User } from '../../orm/users/user.entity';
-import { AuthGuard } from '../../guards/auth.guard';
+import { User } from '../../common/orm/users/user.entity';
+import { AuthGuard } from '../../common/guards/auth.guard';
 import {
   ApiCreatedResponse,
   ApiForbiddenResponse,

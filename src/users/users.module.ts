@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import { CurrentUserInterceptor } from 'src/interceptors/current-user.interceptor';
-import { OrmModule } from 'src/orm/orm.module';
-import { PrismaModule } from 'src/prisma/prisma.module';
+import { CurrentUserInterceptor } from 'src/common/interceptors/current-user.interceptor';
+import { OrmModule } from 'src/common/orm/orm.module';
+import { PrismaModule } from 'src/common/prisma/prisma.module';
 import { UsersController } from './controller/users.controller';
 
 import { AuthService } from './service/auth/auth.service';
