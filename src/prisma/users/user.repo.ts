@@ -16,4 +16,44 @@ export class UserRepo {
       data,
     });
   }
+  async findOne(id: number): Promise<User> {
+    return await this.prisma.user.findUnique({
+      where: {
+        id: id,
+      },
+    });
+  }
+
+  async find(email: string): Promise<User[]> {
+    const user = await this.prisma.user.findMany({
+      where: {
+        email: email,
+      },
+    });
+
+    return user;
+  }
+
+  async update(id: number, attrs: Partial<User>): Promise<User> {
+    const updateUser = await this.prisma.user.update({
+      where: {
+        id,
+      },
+      data: {
+        ...attrs,
+      },
+    });
+
+    return updateUser;
+  }
+
+  async remove(id: number): Promise<User> {
+    const deleteUser = await this.prisma.user.delete({
+      where: {
+        id,
+      },
+    });
+
+    return deleteUser;
+  }
 }
