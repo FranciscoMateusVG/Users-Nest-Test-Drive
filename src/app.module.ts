@@ -7,7 +7,7 @@ import { User } from './orm/users/user.entity';
 import { Report } from './orm/reports/report.entity';
 import { UsersController } from './users/controller/users.controller';
 import { APP_PIPE } from '@nestjs/core';
-import cookieSession from 'cookie-session';
+const cookieSession = require('cookie-session');
 
 const DbOrmModule = TypeOrmModule.forRoot({
   type: 'sqlite',
